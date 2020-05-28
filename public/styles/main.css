@@ -19,8 +19,13 @@ body {
   background-color: #222;
 }
 
-h1{
+header h1{
   color: #e50914;
+}
+
+header p{
+  color: #ffffff;
+  font-weight: 500;
 }
 
 
@@ -49,7 +54,22 @@ h1{
   width: 400px;
 }
 
+.dashboard h2{
+  color: #ffffff;
+}
+
+button{
+  border: none;
+  border-radius: 5px;
+  background-color: #e50914;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: inherit;
+  min-height: 3rem;
+  font-size: 1.2rem;
+}
 footer {
+  color: #ffffff;
   display: flex;
   justify-content: center;
 }

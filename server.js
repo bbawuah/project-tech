@@ -1,9 +1,9 @@
 const express = require("express");
 // Add the express module to your application
 const app = express(); // Assign Express app to an constant
-const path = require("path"); // De path module zorgt ervoor dat de absolute path wordt gebruikt vanaf mijn computer
-const http = require("http");
 const hbs = require("hbs");
+
+const bodyParser = require('body-parser');
 
 require("dotenv").config();
 
@@ -17,8 +17,14 @@ app.set("view engine", "hbs");
 app.set("views", views);
 hbs.registerPartials(partials);
 
+app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
+
+
 app.use(express.static(`${__dirname}/public`));
-app.use(express.json());
 
 app.use(routes); // Gebruik routes als middleware
 
@@ -33,6 +39,14 @@ app.get("/chat", (req, res) => {
     title: "party",
   });
 });
+
+app.post("/dashboard", (req, res) => {
+  console.log(req.body)
+  console.log(req.headers)
+  res.render("dashboard", {
+    title: "Dashboard"
+  })
+})
 
 const expressServer = app.listen(port, () =>
   console.log(
