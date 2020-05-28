@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
     <title>Document</title>
 </head>
 
@@ -13,9 +13,24 @@
     <main>
         <h1>{{joke}}</h1>
         <a href="/about">About</a>
-     
+
+        <form action="/dashboard" method="POST" class="login">
+            <label>
+                Username
+                <input type="text" required>
+            </label>
+
+            <label>
+                Password
+                <input type="password" required>
+            </label>
+
+            <button type="submit">Login</button>
+        </form>
     </main>
     {{>footer}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="index.j"></script>
 </body>
 
 </html>
