@@ -1,4 +1,4 @@
-const form = document.querySelector('.login')
+
 
 const socket = io();
 

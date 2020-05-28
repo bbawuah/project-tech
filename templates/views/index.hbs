@@ -12,24 +12,27 @@
     {{>header}}
     <main>
         <h1>{{joke}}</h1>
-
-
         <form action="/dashboard" method="post" class="login" >
             <label>
                 Username
-                <input type="text" required value="test" name="username">
+                <input type="text" required  name="username">
+            </label>
+
+             <label>
+                Age
+                <input type="number" required  name="age">
             </label>
 
             <label>
                 Password
-                <input type="password" required value="test" name="password">
+                <input type="password" required  name="password">
             </label>
 
             <button type="submit">Login</button>
         </form>
     </main>
     {{>footer}}
-    <script src="index.js"></script>
+    
 </body>
 
 </html>

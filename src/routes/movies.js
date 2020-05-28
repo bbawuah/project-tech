@@ -4,13 +4,7 @@ const router = new express.Router();
 const sharp = require("sharp"); // Package for resizing images
 const multer = require("multer");
 
-const { MongoClient } = require("mongodb");
-
 // Ik heb een connectie gemaakt met mijn database en data en files naar mijn database geschreven
-
-const url = process.env.MONGO_CONNECTION_URL;
-
-const databaseName = "project-tech";
 
 // Dit wil ik schrijven naar database
 const movies = [
@@ -33,19 +27,6 @@ const movies = [
 
 /* Met Multer kunnen we images opslaan in onze database met binaire waardes */
 const upload = multer();
-
-MongoClient.connect(
-  url,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  (error, client) => {
-    if (error) {
-      return console.log("Unable to connect to database");
-    }
-
-    const db = client.db(databaseName);
 
     router.post("/movies", upload.single("image"), async (req, res) => {
       console.log(req.body);
@@ -70,7 +51,6 @@ MongoClient.connect(
 
       res.send("Check");
     });
-  }
-);
+
 
 module.exports = router;

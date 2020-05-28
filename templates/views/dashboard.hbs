@@ -11,13 +11,17 @@
 <body class="dashboard">
     {{>header}}
     <main>
-        <h2>Dashboard</h2>
+        <section class="greeting">
+            <h2>Welcome {{user.username}}!</h2>
+            <h3>{{title}}</h3>
+        </section>
 
 
-   
+
+
     </main>
     {{>footer}}
-    
+
     <script src="index.js"></script>
 </body>
 
