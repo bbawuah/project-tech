@@ -9,6 +9,8 @@ Op de userSchema kan ik dam verschillende methods op uitvoeren
 
 
 */
+
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -28,6 +30,27 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
 });
+
+
+
+
+// Creating custom method on our userSchema
+// https://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
+
+/**
+ * 
+ * 
+ * Each Schema can define instance and static methods for its model.
+ * 
+ * 
+ * Statics are pretty much the same as methods but allow for defining functions that exist directly on your Model.
+ */
+userSchema.methods.generateAuthToken = async function () {
+
+}
+
+
+
 
 /**
  

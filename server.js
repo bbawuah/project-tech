@@ -50,7 +50,8 @@ app.get("/chat", (req, res) => {
   });
 });
 
-app.post("/dashboard", (req, res) => {
+// Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
+app.post("/dashboard", async (req, res) => {
   console.log(req.body);
 
   const user = new User(req.body);  
@@ -63,20 +64,20 @@ app.post("/dashboard", (req, res) => {
   })
 
 
-  user
-    .save()
-    .then(() => {
-      console.log(user);
+  try {
+    await user.save()
+    console.log(user);
       res.status(201).render( "dashboard", {
         title: "Dashboard",
         user,
         movie
       });
-    })
-    .catch((e) => {
-      console.log(e);
-      res.status(400).send(e)
-    });
+
+  } catch(e){
+    console.log(e);
+    res.status(400).send(e)
+  }
+
   console.log(req.headers);
 });
 

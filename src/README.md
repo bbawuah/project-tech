@@ -12,6 +12,12 @@ Middleware (also called pre and post hooks) are functions which are passed contr
 
 Middlewares kunnen dus een functie uitvoeren vlak voor of na een opdracht.
 
+### Authentication tokens
+
+#### JSON WEBTOKENS
+
+
+
 
 
 ### Securely storing user passwords
