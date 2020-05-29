@@ -6,7 +6,10 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 const routes = require("./src/routes/movies"); // Laad routes in
+const swal = require('sweetalert');
 
+// Hier laadt ik mongoose in en 
+// hiermeer connect ik ook direct met mijn database
 require("./src/db/mongoose");
 const User = require('./src/model/User');
 const Movies = require('./src/model/Movies');
@@ -15,11 +18,15 @@ const Movies = require('./src/model/Movies');
 const partials = `${__dirname}/templates/partials`;
 const views = `${__dirname}/templates/views`;
 
+// Configuratie voor hbs
 app.set("view engine", "hbs");
 app.set("views", views);
 hbs.registerPartials(partials);
 
+// Dit is voor mijn API Routes
 app.use(express.json());
+
+// Dit is   
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
   bodyParser.urlencoded({
@@ -46,10 +53,11 @@ app.get("/chat", (req, res) => {
 app.post("/dashboard", (req, res) => {
   console.log(req.body);
 
-  const user = new User(req.body);
+  const user = new User(req.body);  
+  const movie = Movies.findOne({title: 'Breaking Bad'}).then((movie) => {
+    console.log(movie.image)
 
-  const movies = Movies.find({}).then((movies) => {
-    console.log(movies)
+    // 
   }).catch((e) => {
     console.log(e)
   })
@@ -62,7 +70,7 @@ app.post("/dashboard", (req, res) => {
       res.status(201).render( "dashboard", {
         title: "Dashboard",
         user,
-        movies
+        movie
       });
     })
     .catch((e) => {

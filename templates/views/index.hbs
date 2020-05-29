@@ -12,27 +12,36 @@
     {{>header}}
     <main>
         <h1>{{joke}}</h1>
-        <form action="/dashboard" method="post" class="login" >
-            <label>
-                Username
-                <input type="text" required  name="username">
-            </label>
 
-             <label>
-                Age
-                <input type="number" required  name="age">
-            </label>
 
-            <label>
-                Password
-                <input type="password" required  name="password">
-            </label>
+        
+            <section>
+                <h4>Register</h4>
+                <form action="/dashboard" method="post" class="login">
+                    <label>
+                        Username
+                        <input type="text" required name="username">
+                    </label>
 
-            <button type="submit">Login</button>
-        </form>
+                    <label>
+                        Age
+                        <input type="number" required name="age">
+                    </label>
+
+                    <label>
+                        Password
+                        <input type="password" required name="password">
+                    </label>
+
+                    <button type="submit">Register</button>
+                </form>
+            </section>
+
+         
+        
     </main>
     {{>footer}}
-    
+
 </body>
 
 </html>

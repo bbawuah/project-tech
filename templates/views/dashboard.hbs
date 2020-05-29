@@ -11,6 +11,8 @@
 <body class="dashboard">
     {{>header}}
     <main>
+
+
         <section class="greeting">
             <h2>Welcome {{user.username}}!</h2>
             <h3>{{title}}</h3>
@@ -22,7 +24,14 @@
     </main>
     {{>footer}}
 
+
+    <script>
+
+        () => swal("Oops", "Something went wrong!", "error")
+
+    </script>
     <script src="index.js"></script>
+
 </body>
 
 </html>
