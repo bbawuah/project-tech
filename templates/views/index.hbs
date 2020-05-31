@@ -14,34 +14,69 @@
         <h1>{{joke}}</h1>
 
 
-        
-            <section>
-                <h4>Register</h4>
-                <form action="/dashboard" method="post" class="login">
-                    <label>
-                        Username
-                        <input type="text" required name="username">
-                    </label>
 
-                    <label>
-                        Age
-                        <input type="number" required name="age">
-                    </label>
+        <section>
+            <h4>Register</h4>
+            <form action="#" method="post" class="login" enctype="multipart/form-data">
+                <label>
+                    Username
+                    <input id="username" type="text" required name="username">
+                </label>
 
-                    <label>
-                        Password
-                        <input type="password" required name="password">
-                    </label>
+                <label>
+                    Age
+                    <input id="age" type="number" required name="age">
+                </label>
 
-                    <button type="submit">Register</button>
-                </form>
-            </section>
+                <label>
+                    Password
+                    <input id="password" type="password" required name="password">
+                </label>
 
-         
-        
+                <button type="submit">Register</button>
+            </form>
+        </section>
+
+
+
     </main>
     {{>footer}}
 
+    <script>
+
+        { { !--Hier maak ik een fetch naar de api route in users.js.als de user is aangemaakt, kan hij door naar het dashboard-- } }
+        const form = document.getElementsByTagName('form')[0];
+        const button = document.getElementsByTagName('button')[0];
+
+        const username = document.getElementById('username');
+        const age = document.getElementById('age');
+        const password = document.getElementById('password');
+
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            { { !--Object van formdata-- } }
+            const data = {
+                username: username.value,
+                age: age.value,
+                password: password.value
+            }
+
+            fetch('http://localhost:3000/user', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data) //Send data of form to server
+            }).then((res) => {
+                console.log('Created')
+                console.log(res)
+                return window.location.href = "http://localhost:3000/dashboard";
+            }).catch((e) => {
+                console.log('failed')
+                console.log(e);
+            })
+        })
+
+    </script>
 </body>
 
 </html>

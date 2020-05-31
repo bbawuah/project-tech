@@ -6,13 +6,15 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 const routes = require("./src/routes/movies"); // Laad routes in
-const swal = require('sweetalert');
+const swal = require("sweetalert");
 
-// Hier laadt ik mongoose in en 
+// Hier laadt ik mongoose in en
 // hiermeer connect ik ook direct met mijn database
 require("./src/db/mongoose");
-const User = require('./src/model/User');
-const Movies = require('./src/model/Movies');
+const Movies = require("./src/model/Movies");
+
+//Routes
+const userRoutes = require("./src/routes/users");
 
 // De path module zorgt ervoor dat de absolute path wordt gebruikt vanaf mijn computer
 const partials = `${__dirname}/templates/partials`;
@@ -26,7 +28,9 @@ hbs.registerPartials(partials);
 // Dit is voor mijn API Routes
 app.use(express.json());
 
-// Dit is   
+app.use(userRoutes);
+
+// Dit is
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
   bodyParser.urlencoded({
@@ -36,7 +40,6 @@ app.use(
 );
 app.use(express.static(`${__dirname}/public`));
 app.use(routes); // Gebruik routes als middleware
-
 
 app.get("/", (req, res) => {
   res.render("index", {
@@ -51,34 +54,10 @@ app.get("/chat", (req, res) => {
 });
 
 // Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
-app.post("/dashboard", async (req, res) => {
-  console.log(req.body);
-
-  const user = new User(req.body);  
-  const movie = Movies.findOne({title: 'Breaking Bad'}).then((movie) => {
-    console.log(movie.image)
-
-    // 
-  }).catch((e) => {
-    console.log(e)
-  })
-
-
-  try {
-    await user.save()
-    console.log(user);
-      res.status(201).render( "dashboard", {
-        title: "Dashboard",
-        user,
-        movie
-      });
-
-  } catch(e){
-    console.log(e);
-    res.status(400).send(e)
-  }
-
-  console.log(req.headers);
+app.get("/dashboard", (req, res) => {
+  res.render("dashboard", {
+    title: "party",
+  });
 });
 
 const expressServer = app.listen(port, () =>
