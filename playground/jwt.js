@@ -6,7 +6,9 @@ const myFunction = async () => {
   /*
     Object contains data that we want to ..
     */
-  const token = jwt.sign({ _id: "brianbawuah" }, "projectTechIsLeuk", {expiresIn: '2 days'});
+
+
+  const token = jwt.sign({ _id: "brianbawuah" } /*Unique identiefier! van object. (_id dus) */, "projectTechIsLeuk", {expiresIn: '2 days'});
   console.log(token);
   /**
    * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJicmlhbmJhd3VhaCIsImlhdCI6MTU5MDc3MDU5Mn0.4wLvmgPKrfX4AFr4B-WOzCKplW9Oo1eoEpIfE746mhA

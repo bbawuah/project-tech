@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+
 
 /*
 Om gebruik te maken van mongoose middlewares moet ik mijn eigen schema aanmaken
@@ -9,7 +11,6 @@ Op de userSchema kan ik dam verschillende methods op uitvoeren
 
 
 */
-
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -29,28 +30,38 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  tokens: [{
+    token: {
+      type: String,
+      required:true
+    }
+  }]
 });
-
-
-
 
 // Creating custom method on our userSchema
 // https://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
 
 /**
- * 
- * 
+ *
+ *
  * Each Schema can define instance and static methods for its model.
- * 
- * 
+ *
+ *
  * Statics are pretty much the same as methods but allow for defining functions that exist directly on your Model.
  */
+
+//  Hier genereer ik dus een nieuwe token voor de gebruiker zodra hij inlogt. Deze token ga ik later gebruiken voor authenticatie
 userSchema.methods.generateAuthToken = async function () {
+  const user = this; //Makkelijker om naar te verwijzen
+  const token = jwt.sign({_id: user._id.toString()} /* id is ObjectId(5ed0ef97405ebd524ada62d8).. jwt verwacht een string */, 'projectTechIsLeuk');
 
-}
+  // Concat returned een nieuwe array samengevoegd met de nieuwe waardes
+  user.tokens = user.tokens.concat({ token: token}) //Zie user mode
 
+  await user.save() //Sla de token op in mongo
 
-
+  return token;
+};
 
 /**
  
@@ -71,19 +82,18 @@ userSchema.pre("save", async function (next) {
   */
   const user = this;
 
-/*
+  /*
 
 Alleen het wachtwoord wijzigt willen we de hash functie toepassen.
 Dus niet elke keer als de user inlogt!
 */
-  if(user.isModified('password')){
-
-    user.password = await bcrypt.hash(user.password, 8) //Zie playground brcypt.js
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8); //Zie playground brcypt.js
   }
 
   //Net als met middlewares in express, wordt next geroepen als de middleware is afgerond en model in dit geval kan worden opgeslagen
   // Als next niet wordt geroepen, blijft de middleware hangen
-  next(); 
+  next();
 });
 
 // Data validation & data sanitization
