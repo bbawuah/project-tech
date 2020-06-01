@@ -1,6 +1,7 @@
 const express = require('express'); //Laad Express in
 const router = new express.Router(); // Create nieuwe instance of router
 
+
 // Mongoose models
 const User = require("../model/User");
 
@@ -21,6 +22,9 @@ router.post('/user', async (req, res) => {
     }
 })
 
+router.get('/users/me', async (req, res) => {
+    res.send(req.user);
+  });
 
 
 module.exports = router;

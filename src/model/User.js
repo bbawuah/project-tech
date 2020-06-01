@@ -1,15 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
-
+const jwt = require("jsonwebtoken");
 
 /*
 Om gebruik te maken van mongoose middlewares moet ik mijn eigen schema aanmaken
 en die vervolgens meegeven aan het user model.
 
 Op de userSchema kan ik dam verschillende methods op uitvoeren
-
-
 */
 
 const userSchema = new mongoose.Schema({
@@ -30,12 +27,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  tokens: [{
-    token: {
-      type: String,
-      required:true
-    }
-  }]
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 // Creating custom method on our userSchema
@@ -43,22 +42,25 @@ const userSchema = new mongoose.Schema({
 
 /**
  *
- *
+ *https://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
  * Each Schema can define instance and static methods for its model.
- *
- *
  * Statics are pretty much the same as methods but allow for defining functions that exist directly on your Model.
  */
 
 //  Hier genereer ik dus een nieuwe token voor de gebruiker zodra hij inlogt. Deze token ga ik later gebruiken voor authenticatie
 userSchema.methods.generateAuthToken = async function () {
   const user = this; //Makkelijker om naar te verwijzen
-  const token = jwt.sign({_id: user._id.toString()} /* id is ObjectId(5ed0ef97405ebd524ada62d8).. jwt verwacht een string */, 'projectTechIsLeuk');
+  const token = jwt.sign(
+    {
+      _id: user._id.toString(),
+    } /* id is ObjectId(5ed0ef97405ebd524ada62d8).. jwt verwacht een string */,
+    "projectTechIsLeuk"
+  );
 
   // Concat returned een nieuwe array samengevoegd met de nieuwe waardes
-  user.tokens = user.tokens.concat({ token: token}) //Zie user mode
+  user.tokens = user.tokens.concat({ token: token }); //Zie user mode
 
-  await user.save() //Sla de token op in mongo
+  await user.save(); //Sla de token op in mongo
 
   return token;
 };

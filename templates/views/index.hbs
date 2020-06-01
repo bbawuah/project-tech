@@ -44,7 +44,6 @@
 
     <script>
 
-        { { !--Hier maak ik een fetch naar de api route in users.js.als de user is aangemaakt, kan hij door naar het dashboard-- } }
         const form = document.getElementsByTagName('form')[0];
         const button = document.getElementsByTagName('button')[0];
 
@@ -55,7 +54,6 @@
         button.addEventListener('click', (e) => {
             e.preventDefault();
 
-            { { !--Object van formdata-- } }
             const data = {
                 username: username.value,
                 age: age.value,
@@ -69,6 +67,7 @@
             }).then((res) => {
                 console.log('Created')
                 console.log(res)
+                
                 return window.location.href = "http://localhost:3000/dashboard";
             }).catch((e) => {
                 console.log('failed')

@@ -6,7 +6,8 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 const routes = require("./src/routes/movies"); // Laad routes in
-const swal = require("sweetalert");
+const cookieParser = require('cookie-parser');
+
 
 // Hier laadt ik mongoose in en
 // hiermeer connect ik ook direct met mijn database
@@ -25,9 +26,13 @@ app.set("view engine", "hbs");
 app.set("views", views);
 hbs.registerPartials(partials);
 
-// Dit is voor mijn API Routes
+// Gebruik cookieparser
+app.use(cookieParser());
+
+// Dit is voor mijn API Routes dit doet als ik het goed heb hetzelfde als body-parser maar toch heb ik ze allebei nodig
 app.use(express.json());
 
+// Hier gooi ik de api routes in een middleware
 app.use(userRoutes);
 
 // Dit is
@@ -41,9 +46,18 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 app.use(routes); // Gebruik routes als middleware
 
+// Routes
 app.get("/", (req, res) => {
   res.render("index", {
     test: "test",
+  });
+});
+
+// Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
+app.get("/dashboard",(req, res) => {
+  res.render("dashboard", {
+    title: "party",
+    username: "Gebruiker"
   });
 });
 
@@ -53,12 +67,6 @@ app.get("/chat", (req, res) => {
   });
 });
 
-// Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard", {
-    title: "party",
-  });
-});
 
 const expressServer = app.listen(port, () =>
   console.log(
@@ -70,6 +78,26 @@ const expressServer = app.listen(port, () =>
 // Express maakt dit achter de schermen, daarom de eigen server
 const io = require("socket.io")(expressServer);
 
-io.on("connection", (res) => {
-  console.log("Websocket", res);
+
+let count = 0;
+// Het argument socket is een object met alle data van de gebruiker die is geconnect
+io.on("connection", (socket) => {
+  console.log("Websocket");
+
+  // Emit is een method die iets kan terug sturen naar de gebruiker
+  // Zie chat.js
+  socket.emit('message', 'Welcome!')
+
+  socket.on('increment', () => {
+    count++
+    socket.emit('countUpdated', count)
+  })
+
+  socket.on('sendMessage', (message) => {
+    console.log(message)
+
+    socket.emit('message', 'We have received your message!')
+  })
 });
+
+
