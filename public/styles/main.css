@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html{
+  height: 100%;
+}
+
 main {
   margin: 3rem 0;
   display: flex;
@@ -11,7 +15,7 @@ main {
   align-items: center;
 }
 
-main .greeting{
+main .greeting {
   align-self: flex-start;
 }
 
@@ -19,27 +23,27 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   max-width: 1100px;
-  margin: 3rem auto;
+  margin: 3rem auto 0 auto;
   background-color: #222;
   color: #ffffff;
+  height: 90%;
 }
 
-header h1{
+header h1 {
   color: #e50914;
 }
 
-header p{
+header p {
   color: #ffffff;
   font-weight: 500;
 }
 
-
-.login{
+.login {
   display: flex;
   flex-direction: column;
 }
 
-.login label{
+.login label {
   display: flex;
   align-items: center;
   font-weight: 500;
@@ -47,43 +51,102 @@ header p{
   border-radius: 5px;
   color: #ffffff;
   background-color: #555;
-  margin: .5rem 0;
-  padding: .5rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
 }
 
-.login input{
-  transition: .2s ease-out;
+.login input {
+  transition: 0.2s ease-out;
   border: none;
   border-radius: 3px;
-  padding: .5rem;
+  padding: 0.5rem;
   width: 400px;
 }
 
-.dashboard h2{
+.dashboard h2 {
   color: #ffffff;
 }
 
-button{
+.dashboard section {
+  text-align: center;
+}
+
+.dashboard .btn-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .btn-container button{
+  margin-top: 1.5rem;
+min-height: 1.5rem;
+  background-color: #888;
+  font-size: .8rem;
+  padding: .6rem;
+  cursor: pointer;
+}
+
+#movie-form{
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#movie-form input{
+  margin-bottom: 1rem;
+}
+
+button {
   border: none;
   border-radius: 5px;
   background-color: #e50914;
   font-weight: 800;
   color: #ffffff;
   font-family: inherit;
+  cursor: pointer;
   min-height: 3rem;
   font-size: 1.2rem;
 }
 
-.chat{
+.chat {
   align-self: flex-end;
+  margin-bottom: 1.5rem;
 }
 
-.chat input{
+.chat .chat__messages{
+  overflow-y: scroll;
+  max-height: 395px;
+}
+
+.chat-page main{
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chat input {
   height: 3rem;
   font-size: 1.1rem;
+  background-color: #777;
+  border-radius: 5px;
+  border: none;
+  color: #000;
+  font-weight: bolder;
+  padding: 0 .2rem;
+}
+
+.chat .message {
+  margin-bottom: 1rem;
+}
+
+.chat .message-name {
+  color: #888;
+}
+
+.chat .message-time {
+  font-weight: 500;
 }
 footer {
   color: #ffffff;
   display: flex;
   justify-content: center;
+ 
 }

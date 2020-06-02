@@ -6,8 +6,9 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 const routes = require("./src/routes/movies"); // Laad routes in
-const cookieParser = require('cookie-parser');
-
+const cookieParser = require("cookie-parser");
+const Filter = require("bad-words");
+const generateMessage = require("./src/chatUtils/messages");
 
 // Hier laadt ik mongoose in en
 // hiermeer connect ik ook direct met mijn database
@@ -46,28 +47,6 @@ app.use(
 app.use(express.static(`${__dirname}/public`));
 app.use(routes); // Gebruik routes als middleware
 
-// Routes
-app.get("/", (req, res) => {
-  res.render("index", {
-    test: "test",
-  });
-});
-
-// Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
-app.get("/dashboard",(req, res) => {
-  res.render("dashboard", {
-    title: "party",
-    username: "Gebruiker"
-  });
-});
-
-app.get("/chat", (req, res) => {
-  res.render("chat", {
-    title: "party",
-  });
-});
-
-
 const expressServer = app.listen(port, () =>
   console.log(
     `Express js server has started and is listening on http://localhost:${port}`
@@ -78,26 +57,66 @@ const expressServer = app.listen(port, () =>
 // Express maakt dit achter de schermen, daarom de eigen server
 const io = require("socket.io")(expressServer);
 
-
 let count = 0;
 // Het argument socket is een object met alle data van de gebruiker die is geconnect
+
+// Routes
+app.get("/", (req, res) => {
+  res.render("index", {
+    test: "test",
+  });
+});
+
+// Ik heb hier een async funtction van gemaakt zodat ik await kan gebruiken in try/catch block
+app.get("/dashboard", async (req, res) => {
+  const movies = await Movies.find({});
+
+  console.log(movies[0]);
+  console.log(movies[0]._id);
+  res.render("dashboard", {
+    username: "Gebruiker",
+    movie: movies[0],
+  });
+});
+
+let room__ID = "";
+app.get("/chat", (req, res) => {
+  room__ID = req.query.room;
+  res.render("chat", {
+    title: "party",
+  });
+});
 io.on("connection", (socket) => {
   console.log("Websocket");
 
+  socket.on("join", () => {
+    console.log(room__ID);
+    socket.join(room__ID);
+
+    socket.emit("message", generateMessage("Let's get this party started!"));
+    socket.broadcast
+      .to(room__ID)
+      .emit("message", { text: "A new user has joined!" });
+  });
   // Emit is een method die iets kan terug sturen naar de gebruiker
   // Zie chat.js
-  socket.emit('message', 'Welcome!')
 
-  socket.on('increment', () => {
-    count++
-    socket.emit('countUpdated', count)
-  })
+  socket.on("sendMessage", (message, callback) => {
+    const filter = new Filter(); //New instance
+    const cleanMsg = filter.clean(message);
 
-  socket.on('sendMessage', (message) => {
-    console.log(message)
+    console.log(cleanMsg);
 
-    socket.emit('message', 'We have received your message!')
-  })
+    if (filter.isProfane(message)) {
+      io.emit("message", cleanMsg);
+      return callback("Let een beetje op het taalgebruik..");
+    }
+
+    io.to(room__ID).emit("message", generateMessage(cleanMsg));
+    callback("Delivered");
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("message", { text: "A user has left!" });
+  });
 });
-
-

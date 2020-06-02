@@ -13,9 +13,24 @@
     <main>
 
 
-        <section class="greeting">
+        <section>
             <h2>Welcome {{user.username}}!</h2>
-            <h3>{{title}}</h3>
+            <h3>{{movie.title}}</h3>
+            <p>{{movie.subtitle}}</p>
+
+            <form id="movie-form" action="/chat" method="GET">
+
+                <label for="room-id">Room ID:
+                    <input name="room" type="text" readonly="readonly" value="{{movie._id}}">
+                </label>
+                <button>Watch Netflix serie</button>
+            </form>
+
+
+            <div class="btn-container">
+                <button>Next</button>
+                <button>Previous</button>
+            </div>
         </section>
 
 
@@ -24,4 +39,5 @@
     </main>
     {{>footer}}
 </body>
+
 </html>
