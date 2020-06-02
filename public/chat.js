@@ -50,7 +50,7 @@ socket.on("message", (message) => {
     `
   
   <div class="message">
-  <p><span class="message-name">${message.createdAt}</span> - <span class="message-time">${message.text}</span></p>
+  <p><span class="message-name">${message.createdAt ? message.createdAt : '-'}</span> - <span class="message-time">${message.text}</span></p>
 </div>
   `
   );
