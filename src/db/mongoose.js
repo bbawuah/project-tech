@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 
 
 
-mongoose.connect(process.env.MONGO_CONNECTION_URL, {
+mongoose.connect('mongodb+srv://brian-tech:brianbaw1@cluster0-qkwhm.mongodb.net/project-tech', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
