@@ -60,7 +60,7 @@
                 password: password.value
             }
 
-            fetch('http://localhost:3000/user', {
+            fetch('https://arcane-badlands-39339.herokuapp.com//user', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data) //Send data of form to server
@@ -68,7 +68,7 @@
                 console.log('Created')
                 console.log(res)
                 
-                return window.location.href = "http://localhost:3000/dashboard";
+                return window.location.href = "https://arcane-badlands-39339.herokuapp.com/dashboard";
             }).catch((e) => {
                 console.log('failed')
                 console.log(e);
