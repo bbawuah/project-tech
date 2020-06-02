@@ -42,15 +42,26 @@ Tinder heeft hun applicatie een speelse vorm gegeven door hun swipe functionalit
 | :eight_spoked_asterisk: Het suprise-effect | :no_entry:️ Het risico op catfish                      |
 |                                            | :no_entry:️ Beperkte functionaliteit gratis gebruikers |
 
+# Mijn Concept (Natch)
+
+Natch is een applicatie die het mogelijk maakt voor gebruikers om te blind daten op een leuke manier door je favoriete netflix serie te bekijken. 
+
+Het werkt als volgt:
+
+1: je registreerd een account.
+2: Je kiest een Netflix serie uit die je graag wilt bekijken.
+3: Vervolgens kom je in een Netflix party waar je samen met iemand anders naar jullie gekozen serie/aflevering gaan kijken.
+4: Mochten jullie viben dan kunnen jullie na de serie ervoor kiezen om jullie account gegevens vrij te geven.
+
+Let's get this party started!!
+
 # Style Guides
 
 ## Colors
+Ik wil graag de experience van Netflix creeeren in mijn applicatie. Daarom heb ik gekozen voor de donkere kleuren. Ook lijkt het mij prettiger om series op een donkerder scherm te bekijken want dit geeft een soort bioscoop ervaring.
 
-600
-#D53F8C
-
-600
-#38A169
+#e50914
+#222
 
 ## Fonts
 
