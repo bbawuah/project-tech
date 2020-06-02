@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
     socket.emit("message", generateMessage("Let's get this party started!"));
     socket.broadcast
       .to(room__ID)
-      .emit("message", { text: "A new user has joined!" });
+      .emit("message", { text: "Your Netflix partner has joined!" });
   });
   // Emit is een method die iets kan terug sturen naar de gebruiker
   // Zie chat.js
