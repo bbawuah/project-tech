@@ -1,3 +1,5 @@
+// Kleine api route voor movies
+
 const express = require("express");
 // Add the express module to your application
 const router = new express.Router();
@@ -25,7 +27,10 @@ const movies = [
   },
 ];
 
-/* Met Multer kunnen we images opslaan in onze database met binaire waardes */
+/* Met Multer kunnen we images opslaan in onze database in binaire format */
+// https://www.npmjs.com/package/multer
+// https://medium.com/@svibhuti22/file-upload-with-multer-in-node-js-and-express-5bc76073419f
+
 const upload = multer();
 
     router.post("/movies", upload.single("image"), async (req, res) => {

@@ -1,23 +1,21 @@
 ## Backend
-
-De endpoints zijn op dit moment voor iedereen toegankelijk. Ik wil graag private routes maken voor gebruikers die zijn ingelogd!
+De endpoints zijn op dit moment voor iedereen toegankelijk. Ik wou graag nog private routes maken voor gebruikers die zijn ingelogd. Maar dit is me 'nog' niet gelukt vanwege het probleem dat mijn fetch response body een readablestream is
 
 
 ### Mongoose
 
 #### Mongoose Models
+Een mongoose model is eigenlijk een blue print voor de data die je schrijft naar je database. Met models kan je aangeven welk datatype je verwacht, je kan data valideren en nog meer
 
 #### Mongoose Middleware
-Middleware (also called pre and post hooks) are functions which are passed control during execution of asynchronous functions. Middleware is specified on the schema level and is useful for writing. https://mongoosejs.com/docs/middleware.html
+"Middleware (also called pre and post hooks) are functions which are passed control during execution of asynchronous functions. Middleware is specified on the schema level and is useful for writing. https://mongoosejs.com/docs/middleware.html"
 
-Middlewares kunnen dus een functie uitvoeren vlak voor of na een opdracht.
+- Met andere woorden.. Middlewares kunnen dus een functie uitvoeren vlak voor of na een opdracht. https://mongoosejs.com/docs/middleware.html
 
 ### Authentication tokens
 
 #### JSON WEBTOKENS
-
-
-
+Het is me nog niet gelukt om de json webtokens in de cookies of localstorage te plaatsen omdat mijn fetch response.body een readablestream was en ik niet goed wist hoe ik dat kon fiksen. Ik heb er daarna niet zoveel tijd meer aan besteed omdat ik meer wilde focussen op mijn chat feature.
 
 
 ### Securely storing user passwords

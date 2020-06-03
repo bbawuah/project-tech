@@ -86,14 +86,20 @@ app.get("/chat", (req, res) => {
     title: "party",
   });
 });
+
 io.on("connection", (socket) => {
+  // Als er een connectie is met socket io doe dan dit..
   console.log("Websocket");
 
   socket.on("join", () => {
     console.log(room__ID);
+    // Hier maak ik een session aan in de vorm van een chat room!
+    // De gebruikers komen hierdoor in een aparte chatroom!
     socket.join(room__ID);
 
+    // Zodra de gebruiker in de chatroom komt, stuur dit bericht
     socket.emit("message", generateMessage("Let's get this party started!"));
+    // Zodra een nieuwe gebruiker in de room komt stuur dan een notificatie naar de andere gebruiker
     socket.broadcast
       .to(room__ID)
       .emit("message", { text: "Your Netflix partner has joined!" });
@@ -101,22 +107,27 @@ io.on("connection", (socket) => {
   // Emit is een method die iets kan terug sturen naar de gebruiker
   // Zie chat.js
 
+  // Op het event sendMessage, doe dan hetgeen in de callback..
   socket.on("sendMessage", (message, callback) => {
-    const filter = new Filter(); //New instance
+
+    const filter = new Filter(); //New instance van filter https://www.npmjs.com/package/bad-words
     const cleanMsg = filter.clean(message);
 
     console.log(cleanMsg);
 
+    // Als het bericht bad words bevat, Stuur dan de clean message terug met een warning
     if (filter.isProfane(message)) {
       io.emit("message", cleanMsg);
       return callback("Let een beetje op het taalgebruik..");
     }
 
+    // Stuur clean message terug naar de andere gebruiker
     io.to(room__ID).emit("message", generateMessage(cleanMsg));
     callback("Delivered");
   });
 
+  // Wanneer een gebruiker de chat verlaat, verstuur dan een bericht dat de gebruiker weg is
   socket.on("disconnect", () => {
-    io.emit("message", { text: "A user has left!" });
+    io.emit("message", { text: "Your Netflix partner has left!" });
   });
 });
