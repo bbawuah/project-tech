@@ -32,6 +32,9 @@ Hiermee kunnen hackers de data zelfs de wachtwoorden gebruiken om op andere acco
 
 Tijdens mijn onderzoek naar het hashen van wachtwoorden ben ik tegen gekomen wat het verschil is van Encryption en Hashing
 
+
+https://www.solarwindsmsp.com/blog/hashing-vs-encryption%C2%A0
+
 | Encryption                                                                                      | Hashing                                                                                                                           |
 | :---------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
 | :eight_spoked_asterisk: Encryption is het altijd mogelijk om de original value terug te krijgen | :eight_spoked_asterisk: Hashing algorithms zijn one-way algorithms en maken het niet mogelijk om original values terug te krijgen |
