@@ -73,6 +73,8 @@ app.get("/dashboard", async (req, res) => {
 
   console.log(movies[0]);
   console.log(movies[0]._id);
+
+  console.log(req)
   res.render("dashboard", {
     username: "Gebruiker",
     movie: movies[0],

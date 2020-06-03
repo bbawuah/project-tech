@@ -2,6 +2,9 @@
 De endpoints zijn op dit moment voor iedereen toegankelijk. Ik wou graag nog private routes maken voor gebruikers die zijn ingelogd. Maar dit is me 'nog' niet gelukt vanwege het probleem dat mijn fetch response body een readablestream is
 
 
+**UPDATE - Laatmaar! fixed it!! ik sla nu de webtokens op in localStorage. Dit is volgens mij bad practise maar het zetten van cookies vond ik een beetje teveel gezeik ivm met CORS policies enzo.
+
+
 ### Mongoose
 
 #### Mongoose Models

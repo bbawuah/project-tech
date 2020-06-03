@@ -54,7 +54,7 @@ userSchema.methods.generateAuthToken = async function () {
     {
       _id: user._id.toString(),
     } /* id is ObjectId(5ed0ef97405ebd524ada62d8).. jwt verwacht een string */,
-    "projectTechIsLeuk"
+    process.env.JWT_SECRET
   );
 
   // Concat returned een nieuwe array samengevoegd met de nieuwe waardes

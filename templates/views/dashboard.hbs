@@ -14,7 +14,7 @@
 
 
         <section>
-            <h2>Welcome {{user.username}}!</h2>
+            <h2 id="welcome"></h2>
             <h3>{{movie.title}}</h3>
             <p>{{movie.subtitle}}</p>
 
@@ -38,6 +38,21 @@
 
     </main>
     {{>footer}}
+
+    <script>
+        const token = localStorage.getItem('access_token');
+        const greet = document.getElementById('welcome');
+
+        fetch('https://arcane-badlands-39339.herokuapp.com/users/me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => res.json()).then((data) => {
+
+            greet.textContent = `Hello ${data.username}!`;
+            console.log(data)
+        });
+    </script>
 </body>
 
 </html>
