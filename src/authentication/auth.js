@@ -2,9 +2,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
 const auth = async (req, res, next) => {
-
   // Why does this work thooo lol..
-//   https://stackoverflow.com/questions/43325754/how-to-verify-header-exist
+  //   https://stackoverflow.com/questions/43325754/how-to-verify-header-exist
   const authHeader = req.headers['x-access-token']
     || req.headers.Authorization
     || req.headers.authorization
@@ -16,7 +15,7 @@ const auth = async (req, res, next) => {
     // Verify token with my secret
     // console.log(`Token is ${token}`);
 
-    // Check JWT token 
+    // Check JWT token
     const decoded = jwt.verify(token, `${process.env.JWT_SECRET}`);
 
     // Check User schema and probeer een user te vinden

@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const myFunction = async () => {
   // Sign returns a token
@@ -8,7 +8,7 @@ const myFunction = async () => {
     */
 
 
-  const token = jwt.sign({ _id: "brianbawuah" } /*Unique identiefier! van object. (_id dus) */, "projectTechIsLeuk", {expiresIn: '2 days'});
+  const token = jwt.sign({ _id: 'brianbawuah' } /* Unique identiefier! van object. (_id dus) */, 'projectTechIsLeuk', { expiresIn: '2 days' });
   console.log(token);
   /**
    * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJicmlhbmJhd3VhaCIsImlhdCI6MTU5MDc3MDU5Mn0.4wLvmgPKrfX4AFr4B-WOzCKplW9Oo1eoEpIfE746mhA
@@ -32,7 +32,7 @@ const myFunction = async () => {
    *
    */
 
-  const data = jwt.verify(token, "projectTechIsLeuk");
+  const data = jwt.verify(token, 'projectTechIsLeuk');
   console.log(data);
 };
 

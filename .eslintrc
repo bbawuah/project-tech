@@ -1,9 +1,21 @@
 {
     "extends": "airbnb-base",
     "env": {
-        "node": "true"
+        "browser": true,
+        "commonjs": true,
+        "es6": true
     },
     "rules": {
-        "no-console":"off"
+        "no-console":"off",
+        "func-names": "warn",
+        "arrow-spacing": "warn",
+        "arrow-body-style": "warn",
+        "camelcase": "warn",
+        "no-useless-rename": ["error", {
+            "ignoreDestructuring": false,
+            "ignoreImport": false,
+            "ignoreExport": false
+        }]
+     
     }
 }
