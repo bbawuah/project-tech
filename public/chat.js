@@ -5,6 +5,7 @@ const form = document.querySelector('#formMessage');
 const input = document.querySelector('#input');
 const btn = document.querySelector('#btn');
 const messages = document.querySelector('#messages');
+messages.innerHTML = ''
 
 // Naam van het event moet hetzelfde zijn als op de server
 // Count is data die ik meestuur vanaf de client.

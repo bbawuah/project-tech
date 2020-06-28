@@ -12,11 +12,11 @@
 <body class="chat-page">
     {{>header}}
     <main>
-       
-       <video width="800" height="500" autoplay>
 
-           <source src="assets/netflix-movie.mp4" type="video/mp4">
-       </video>
+        <video width="800" height="500" autoplay>
+
+            <source src="assets/netflix-movie.mp4" type="video/mp4">
+        </video>
 
         <section class="chat">
             <div id="sidebar" class="chat__sidebar">
@@ -24,25 +24,22 @@
             </div>
             <div class="chat__main">
                 <div id="messages" class="chat__messages">
-
+                    <iframe src="/chat/frame/5eced6bbb6cbdc21c739942b"></iframe>
                 </div>
 
                 <div class="compose">
-                    <form action="" id="formMessage">
+                    <form action="/chat" id="formMessage" method="POST">
                         <input id="input" name="message" type="text" required autocomplete="off">
                         <button id="btn" >Send</button>
                     </form>
                     <!-- Client side code of Socket io in order to communicatie from client side -->
                 </div>
             </div>
-
         </section>
-
-   
-
     </main>
+  
     {{>footer}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script src="chat.js"></script>
 </body>
 

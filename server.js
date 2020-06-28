@@ -8,9 +8,11 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const Filter = require('bad-words');
-const io = require('socket.io')(expressServer);
 const routes = require('./src/routes/movies'); // Laad routes in
 const generateMessage = require('./src/chatUtils/messages');
+
+
+const messages = [];
 
 // Hier laadt ik mongoose in en
 // hiermeer connect ik ook direct met mijn database
@@ -53,6 +55,8 @@ const expressServer = app.listen(port, () => console.log(
   `Express js server has started and is listening on http://localhost:${port}`,
 ));
 
+const io = require('socket.io')(expressServer);
+
 // Socket expects it to be called with the raw http server
 // Express maakt dit achter de schermen, daarom de eigen server
 
@@ -81,12 +85,34 @@ app.get('/dashboard', async (req, res) => {
 });
 
 let room__ID = '';
+
 app.get('/chat', (req, res) => {
+  // console.log(req);
   room__ID = req.query.room;
   res.render('chat', {
     title: 'party',
+    messages
   });
 });
+
+
+app.post('/chat', (req, res) => { 
+  console.log('req.body:', req.body)
+  const filter = new Filter(); // New instance van filter https://www.npmjs.com/package/bad-words
+  const cleanMsg = filter.clean(req.body.message);
+
+  const generatedMessage = generateMessage(cleanMsg)
+  messages.push(generatedMessage)
+  console.log(messages)
+  res.status(200).redirect('/chat')
+})
+
+app.get('/chat/frame/:id', (req, res) => { 
+  res.render('frame', messages)
+})
+
+
+
 
 io.on('connection', (socket) => {
   // Als er een connectie is met socket io doe dan dit..

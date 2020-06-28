@@ -144,6 +144,11 @@ button {
 .chat .message-time {
   font-weight: 500;
 }
+
+iframe{
+  width: 100%;
+  height: 500px;
+}
 footer {
   color: #ffffff;
   display: flex;
